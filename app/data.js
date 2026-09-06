@@ -19,8 +19,8 @@ const kendaraan = [
     {
         id : 3,
         nama : "pajero",
-        jenis :"SUV"
-        harga :72400000,
+        jenis :"SUV",
+        harga : 72400000,
         status : "Tersedia",
         gambar : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtKwPv1HKE71vVVcaPpwU7q2GJc2D4x7SYUvTYiiC4WTJwo8_zqOXWGQ-W&s=10"
     },
