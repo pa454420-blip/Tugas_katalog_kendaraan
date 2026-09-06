@@ -2,7 +2,7 @@ import kendaraan from "./data";
 
 function KartuKendaraan({ nama, jenis, harga = "-", status, gambar }) {
   return (
-    <div className="rounded-lg border p-4 mb-3 bg-white shadow-sm">
+    <div className="rounded-lg border p-4 mb-3 bg-blue-100 shadow-sm">
       {gambar && (
         <img
           src={gambar}
@@ -16,7 +16,7 @@ function KartuKendaraan({ nama, jenis, harga = "-", status, gambar }) {
       {status && (
         <p
           className={`text-xs font-semibold mt-2 inline-block px-2 py-1 rounded ${
-            status.toLowerCase() === "tersedia"
+            status.toUpperCase() === "TERSEDIA"
               ? "bg-green-100 text-green-700"
               : "bg-red-100 text-red-600"
           }`}
@@ -37,7 +37,7 @@ export default function BerandaPage() {
 
   return (
     <div className="max-w-3xl mx-auto p-4">
-      <h1 className="text-4xl font-bold mb-6 text-center">DAFTAR KENDARAAN</h1>
+      <h1 className="text-4xl text-purple-600 font-bold mb-6 text-center">DAFTAR KENDARAAN</h1>
 
       {/* Kotak Promo */}
       <Kotak>
