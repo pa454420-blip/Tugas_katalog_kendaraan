@@ -4,16 +4,12 @@ export default function Navbar() {
   return (
     <nav className="border-b bg-white">
       <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-3">
-        <Link href="/" className="text-lg font-bold">
-          Katalog Kendaraan
-        </Link>
+        <Link href="/" className="text-lg font-bold">Rental Lombok</Link>
         <div className="flex gap-6 text-sm">
-          <Link href="/" className="hover:text-indigo-600">Beranda</Link>
-          <Link href="/kendaraan" className="hover:text-indigo-600">Kendaraan</Link>
-          <Link href="/tentang" className="hover:text-indigo-600">Tentang</Link>
+          <Link href="/">Beranda</Link>
+          <Link href="/tentang">Tentang</Link>
         </div>
       </div>
     </nav>
   );
 }
-
