@@ -14,7 +14,7 @@ export default function KendaraanPage() {
     const data = await fetchAuth("/vehicles");
     setItems(data.data ?? data);
   }
-  useEffect(() => { load(); }, []);
+  useEffect(() => { load(); }, []); 
 
   const set = (k, v) => setForm({ ...form, [k]: v });
 

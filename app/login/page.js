@@ -1,49 +1,32 @@
-const API = process.env.NEXT_PUBLIC_API_URL;
+"use client";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { login } from "@/lib/auth";
 
-// === Login: satu-satunya request TANPA token — ambil token lalu simpan ===
-export async function login(email, password) {
-  const res = await fetch(`${API}/auth/login`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, password }),
-  });
-  if (!res.ok) throw new Error("Email atau password salah");
-  const data = await res.json();
-  setToken(data.token);        // simpan token buat request berikutnya
-  return data;
-}
+export default function LoginPage() {
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-// === Request ke endpoint MERCHANT (JSON, butuh Bearer) ===
-export async function fetchAuth(path, options = {}) {
-  const res = await fetch(`${API}${path}`, {
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${getToken()}`,
-      ...options.headers,
-    },
-  });
-  if (res.status === 401) { clearToken(); throw new Error("Sesi habis — login lagi"); }
-  if (!res.ok) throw new Error("Request gagal");
-  return res.json();
-}
+  async function handleLogin(e) {
+    e.preventDefault();
+    setError("");
+    try {
+      await login(email, password);   // hit /auth/login + simpan token (di lib/auth.js)
+      router.push("/dashboard");
+    } catch {
+      setError("Email atau password salah");
+    }
+  }
 
-// Upload file (multipart) — JANGAN set Content-Type, biar browser isi boundary sendiri
-export async function fetchUpload(path, formData, method = "POST") {
-  const res = await fetch(`${API}${path}`, {
-    method,
-    headers: { Authorization: `Bearer ${getToken()}` },
-    body: formData,
-  });
-  if (res.status === 401) { clearToken(); throw new Error("Sesi habis — login lagi"); }
-  if (!res.ok) throw new Error("Upload gagal");
-  return res.json();
+  return (
+    <form onSubmit={handleLogin} className="mx-auto mt-24 max-w-sm space-y-4 p-6">
+      <h1 className="text-2xl font-bold">Login Merchant</h1>
+      <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="w-full rounded border px-3 py-2" />
+      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" className="w-full rounded border px-3 py-2" />
+      {error && <p className="text-sm text-red-600">{error}</p>}
+      <button className="w-full rounded-full bg-black py-2 font-semibold text-white">Masuk</button>
+    </form>
+  );
 }
-
-// === Helper token (dipakai fungsi di atas) — function declaration di-hoist ===
-export function getToken() {
-  if (typeof window === "undefined") return null;
-  return localStorage.getItem("token");
-}
-export function setToken(t) { localStorage.setItem("token", t); }
-export function clearToken() { localStorage.removeItem("token"); }
