@@ -6,7 +6,7 @@ export default async function Home() {
   const info = await getLanding();
   const kendaraan = await getVehicles();
   const testimoni = await getTestimonials();
-  const socials = await getSocials();n
+  const socials = await getSocials();
 
   const pesan = encodeURIComponent("Halo, saya mau sewa kendaraan");
   const waUrl = `https://wa.me/${info.whatsapp}?text=${pesan}`;
@@ -45,7 +45,7 @@ export default async function Home() {
           {testimoni.map((t, i) => (
             <div key={i} className="rounded-xl border p-5">
               <p className="text-yellow-500">{"★".repeat(t.rating)}</p>
-              <p className="mt-2 text-gray-700">"{t.pesan}"</p>
+              <p className="mt-2 text-gray-700">{t.pesan}</p>
               <div className="mt-4 flex items-center gap-3">
                 <img src={t.foto} alt={t.nama} className="h-10 w-10 rounded-full bg-gray-100 object-cover" />
                 <span className="text-sm font-semibold">{t.nama}</span>

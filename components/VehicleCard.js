@@ -1,8 +1,6 @@
-import Link from "next/link";
-
-export default function VehicleCard({ slug, nama, jenis, harga_harian, status, foto }) {
+export default function VehicleCard({ nama, jenis, harga_harian, status, foto }) {
   return (
-    <Link href={`/kendaraan/${slug}`} className="block rounded-xl border p-4 transition hover:shadow-md">
+    <div className="rounded-xl border p-4">
       <img src={foto?.[0]} alt={nama} className="w-full h-40 object-cover rounded-lg mb-3 bg-gray-100" />
       <div className="flex items-start justify-between">
         <h3 className="font-bold">{nama}</h3>
@@ -14,6 +12,6 @@ export default function VehicleCard({ slug, nama, jenis, harga_harian, status, f
       </div>
       <p className="text-gray-600 text-sm">{jenis}</p>
       <p className="font-semibold mt-2">Rp{harga_harian.toLocaleString("id-ID")}/hari</p>
-    </Link>
+    </div>
   );
 }
